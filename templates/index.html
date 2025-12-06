@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lemen Quality Detection</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      /* Use a relative path to the image */
+      background-image: url('../static/bg-img.png');
+      /* Adjusted the path */
+      background-size: cover;
+      /* Cover the entire screen */
+      background-position: center;
+      /* Center the image */
+      background-repeat: no-repeat;
+      /* Avoid repeating the image */
+      font-family: Arial, sans-serif;
+    }
+
+    .main-container {
+      max-width: 900px;
+      margin: 30px auto;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background-color: #B47E49;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 5px solid #B47E49;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    .form-container {
+      padding: 20px;
+    }
+
+    .form-container h2 {
+      color: #333333;
+      margin-bottom: 20px;
+    }
+
+    .form-container .btn-primary {
+      background-color: #B47E49;
+      border-color: #B47E49;
+    }
+
+    .form-container .btn-primary:hover {
+      background-color: #B47E49;
+    }
+
+    .image-preview {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .results {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #B47E49;
+      border-radius: 10px;
+    }
+
+    .results p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Potato disease classifier</h1>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-container">
+      <h2 class="text-center">Upload an Image for Prediction</h2>
+      <form action="/" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="fileInput" class="form-label">Choose an image file:</label>
+          <input type="file" id="fileInput" name="file" accept=".jpg, .jpeg, .png" class="form-control">
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Predict</button>
+        </div>
+      </form>
+
+      <!-- Display Messages -->
+      {% if message %}
+      <p class="text-danger text-center mt-3">{{ message }}</p>
+      {% endif %}
+
+      <!-- Display Results -->
+      {% if image_path %}
+      <div class="image-preview">
+        <img src="{{ image_path }}" alt="Uploaded Image">
+      </div>
+      <div class="results">
+        <p><strong>Actual Label:</strong> {{ actual_label }}</p>
+        <p><strong>Predicted Label:</strong> {{ predicted_label }}</p>
+        <p><strong>Confidence:</strong> {{ confidence }}%</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
